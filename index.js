@@ -18,7 +18,9 @@ app.get("/image/:id", (req, res) => {
     });
 });
 
-
+app.get("/", (req, res) => {
+    res.send("Hello Render");
+});
 // IMPORTANT for Render:
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
