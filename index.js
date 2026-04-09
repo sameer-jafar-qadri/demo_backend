@@ -1,24 +1,25 @@
-const express = require('express');
-const path = require('path');
-const cors = require('cors');
+const express = require("express");
+const cors = require("cors");
+const path = require("path");
 
 const app = express();
 
-app.use(cors()); // allow React to call the server
+app.use(cors());
 
-app.get('/image/:id', (req, res) => {
-    const id = req.params.id;
-    const imagePath = path.join(__dirname, 'images', `${id}.jpg`);
-    res.sendFile(imagePath , (err)=>{
-        if(err) {
-            res.status(404).send("image not found")
+// image route
+app.get("/image/:id", (req, res) => {
+    const { id } = req.params;
+    const filePath = path.join(__dirname, "images", `${id}.jpg`);
+
+    res.sendFile(filePath, (err) => {
+        if (err) {
+            res.status(404).send("Image not found");
         }
     });
 });
-app.get('/', (req,res)=>{
-    res.send("hello fronted this is from backednz")
-})
 
-app.listen(5000, () => {
-    console.log("Server running on http://localhost:5000");
+// IMPORTANT for Render:
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => {
+    console.log("Server running on port " + PORT);
 });
